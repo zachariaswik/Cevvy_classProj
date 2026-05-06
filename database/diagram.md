@@ -8,6 +8,7 @@ erDiagram
         TEXT fullName
         TEXT phoneNumber
         TEXT linkedin
+        TEXT github
         TEXT passwordHash
         TIMESTAMP createdAt
         TIMESTAMP updatedAt
