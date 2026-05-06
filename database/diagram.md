@@ -14,9 +14,15 @@ erDiagram
         TIMESTAMP updatedAt
     }
 
+    Workspaces {
+        NUMBER id PK
+        NUMBER user_id FK
+    }
+
     CVs {
         NUMBER id PK
         NUMBER user_id FK
+        NUMBER workspace_id FK
         TEXT documentType
         TEXT CVfullName
         TEXT summary
@@ -31,5 +37,16 @@ erDiagram
         TIMESTAMP updatedAt
     }
 
+    CoverLetters {
+        NUMBER id PK
+        NUMBER user_id FK
+        NUMBER workspace_id FK
+        TEXT text
+    }
+
+    Users ||--o{ Workspaces : "owns"
     Users ||--o{ CVs : "owns"
+    Users ||--o{ CoverLetters : "owns"
+    Workspaces ||--o| CVs : "has"
+    Workspaces ||--o| CoverLetters : "has"
 ```

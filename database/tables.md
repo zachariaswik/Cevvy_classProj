@@ -1,6 +1,15 @@
 
 # Tables
 
+## Connections
+
+Users -> 1:many -> CVs
+Users -> 1:many -> CoverLetters
+Users -> 1:many -> Workspaces
+
+Workspaces -> 1:1 -> CVs
+Workspaces -> 1:1 -> CoverLetter
+
 
 ## *Users*
 - NUMBER id [PK]
@@ -14,11 +23,16 @@
 - TIMESTAMP updatedAt
 
 
+## *Workspaces*
+- NUMBER id [PK]
+- NUMBER user_id [FK]
+
 
 ## *CVs*
 - id [PK]
-- TEXT documentType [PDF, JSON, MD, HTML]
 - NUMBER user_id [FK]
+- NUMBER workspace_id [FK]
+- TEXT documentType [PDF, JSON, MD, HTML]
 - TEXT CVfullName
 - TEXT summary
 - TEXT targetRole
@@ -31,3 +45,10 @@
 - TIMESTAMP createdAt
 - TIMESTAMP updatedAt
 
+
+
+## *CoverLetters*
+- id [PK]
+- NUMBER user_id [FK]
+- NUMBER workspace_id [FK]
+- TEXT text

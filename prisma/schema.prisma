@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  fullName     String
+  phoneNumber  String?
+  linkedin     String?
+  github       String?
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  workspaces   Workspace[]
+  cvs          CV[]
+  coverLetters CoverLetter[]
+}
+
+// A Workspace is a "job application bundle" — exactly one CV and one Cover Letter
+// for a specific role/application. The FK lives on the children (CV / CoverLetter)
+// to avoid the circular-FK problem; the workspace exposes its CV / cover letter
+// through relation-only fields.
+model Workspace {
+  id        String   @id @default(cuid())
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cv          CV?
+  coverLetter CoverLetter?
+}
+
+// SQLite does not support native enums — using String with validation at the app layer.
+// documentType values: PDF | JSON | MD | HTML
+model CV {
+  id               String    @id @default(cuid())
+  userId           String
+  workspaceId      String?   @unique
+  documentType     String    @default("MD")
+  cvFullName       String
+  summary          String?
+  targetRole       String?
+  experience       String?
+  education        String?
+  skills           String?
+  hobbies          String?
+  lastRevisionKind String?
+  publishedAt      DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace Workspace? @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model CoverLetter {
+  id          String   @id @default(cuid())
+  userId      String
+  workspaceId String?  @unique
+  text        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace Workspace? @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
