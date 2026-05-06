@@ -6,44 +6,28 @@
 - NUMBER id [PK]
 - TEXT email
 - TEXT fullName
+- TEXT phoneNumber
+- TEXT linkedin
+- 
 - TEXT passwordHash
 - TIMESTAMP createdAt
 - TIMESTAMP updatedAt
 
 
-## *AuthSession*
-- NUMBER id [PK].
-- TEXT userId [FK]
-- TEXT sessionToken [UK]
-- TEXT crsfToken
-- TIMESTAMP createdAt
-- TIMESTAMP updatedAt
-- TIMESTAMP expiresAt
-
-## *Workspaces*
-- id [PK]
-- 
-
-## *Applications*
-- id [PK]
-
-
-
 
 ## *CVs*
 - id [PK]
-- WorkspaceId [FK]
 - TEXT documentType [PDF, JSON, MD, HTML]
-- TEXT userId FK
+- NUMBER user_id [FK]
 - TEXT CVfullName
-- TEXT template
+- TEXT summary
 - TEXT targetRole
-- TEXT generationDescription
-- TEXT colorTheme
-- TEXT styleTone
-
-
+- TEXT experience
+- TEXT education
+- TEXT skills
+- TEXT hobbies
 - TIMESTAMP publishedAt
 - TEXT lastRevisionKind
 - TIMESTAMP createdAt
 - TIMESTAMP updatedAt
+
