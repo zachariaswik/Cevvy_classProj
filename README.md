@@ -30,18 +30,21 @@ Job Description (text) [optimal]
 ## Database
 DATABASE - postgreSQL
 
+
 ### Tables
 
+
 #### *Users*
-- TEXT id [PK]
+- NUMBER id [PK]
 - TEXT email
 - TEXT fullName
 - TEXT passwordHash
 - TIMESTAMP createdAt
 - TIMESTAMP updatedAt
 
+
 #### *AuthSession*
-- TEXT id [PK].
+- NUMBER id [PK].
 - TEXT userId [FK]
 - TEXT sessionToken [UK]
 - TEXT crsfToken
@@ -51,12 +54,18 @@ DATABASE - postgreSQL
 
 #### *Workspaces*
 - id [PK]
+- 
+
+#### *Applications*
+- id [PK]
+
+
 
 
 #### *CVs*
 - id [PK]
 - WorkspaceId [FK]
-- TEXT - documentType [PDF, JSON, MD, HTML]
+- TEXT documentType [PDF, JSON, MD, HTML]
 - TEXT userId FK
 - TEXT CVfullName
 - TEXT template
@@ -64,17 +73,9 @@ DATABASE - postgreSQL
 - TEXT generationDescription
 - TEXT colorTheme
 - TEXT styleTone
-- BOOLEAN isPublic
+
+
 - TIMESTAMP publishedAt
-- TEXT createdFromVersionId "logical pointer, no FK"
 - TEXT lastRevisionKind
 - TIMESTAMP createdAt
 - TIMESTAMP updatedAt
-
-
-*CoverLetters*
-
-
-
-### 
-### Relations/Tables/
